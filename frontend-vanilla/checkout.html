@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURELIA | Secure Checkout</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-brand"><a href="index.html">AURELIA</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Shop</a></li>
+            <li><a href="about.html">Maison</a></li>
+            <li><a href="contact.html">Concierge</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="index.html" style="font-size: 0.9rem; text-transform: uppercase;">Return to Shop</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+        <h1>Secure Checkout</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="container fade-in">
+        <div class="checkout-grid">
+            <div class="checkout-items" id="checkout-items">
+                <!-- Items injected by JS -->
+            </div>
+            
+            <div class="checkout-summary">
+                <h3 style="margin-bottom: 20px; font-family: var(--font-heading); color: var(--color-gold);">Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>Calculated below</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Complimentary</span>
+                </div>
+                <div class="summary-total" style="display: flex; justify-content: space-between;">
+                    <span>Total</span>
+                    <span id="checkout-total">$0.00</span>
+                </div>
+                
+                <button id="pay-btn" class="btn" style="width: 100%; margin-top: 30px;">Complete Purchase</button>
+                <div id="checkout-msg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-btn" id="chat-toggle"><i class="fas fa-comment"></i></div>
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <h4>Aurelia Concierge</h4>
+            <span class="close-chat" id="close-chat">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">Welcome to Aurelia. How may our concierge assist you today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Type a message...">
+            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

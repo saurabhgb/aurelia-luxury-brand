@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURELIA | Luxury Fashion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand"><a href="index.html">AURELIA</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Shop</a></li>
+            <li><a href="about.html">Maison</a></li>
+            <li><a href="contact.html">Concierge</a></li>
+        </ul>
+        <div class="nav-icons">
+            <span id="cart-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content fade-in">
+            <h1>The Obsidian Collection</h1>
+            <p>Elegance refined. Discover our latest curated selection of timeless luxury pieces designed for the modern connoisseur.</p>
+            <a href="#shop" class="btn">Explore the Collection</a>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section" id="shop">
+        <h2 class="section-title fade-in">Curated Selections</h2>
+        <div class="product-grid" id="product-grid">
+            <!-- Products injected by JS -->
+        </div>
+    </section>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Shopping Bag</h3>
+            <span class="close-cart" id="close-cart">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items injected by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
+            </div>
+            <a href="checkout.html" class="btn checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-btn" id="chat-toggle">
+        <i class="fas fa-comment"></i>
+    </div>
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <h4>Aurelia Concierge</h4>
+            <span class="close-chat" id="close-chat">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">Welcome to Aurelia. How may our concierge assist you today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Type a message...">
+            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

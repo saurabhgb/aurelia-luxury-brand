@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURELIA | Maison</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-brand"><a href="index.html">AURELIA</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Shop</a></li>
+            <li><a href="about.html" style="color: var(--color-gold);">Maison</a></li>
+            <li><a href="contact.html">Concierge</a></li>
+        </ul>
+        <div class="nav-icons">
+            <span id="cart-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+        <h1>La Maison Aurelia</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="container fade-in">
+        <div class="editorial-grid">
+            <div class="editorial-text">
+                <h2>The Heritage of Elegance</h2>
+                <p>Founded on the principles of timeless minimalism, Aurelia represents the pinnacle of modern luxury. Every piece is meticulously crafted using only the finest materials, sourced responsibly from the world's most prestigious ateliers.</p>
+                <br>
+                <p>Our philosophy is simple: less is undeniably more. We strip away the unnecessary to reveal the essential beauty of form, texture, and silhouette.</p>
+            </div>
+            <div class="editorial-img">
+                <img src="assets/champagne_silk_dress.png" alt="Aurelia Heritage">
+            </div>
+        </div>
+
+        <div class="editorial-grid" style="direction: rtl;">
+            <div class="editorial-text" style="direction: ltr;">
+                <h2>Uncompromising Quality</h2>
+                <p>From the subtle sheen of our champagne silk to the structured perfection of our obsidian leather, our commitment to quality is unwavering. We do not follow trends; we create enduring classics designed to be cherished for a lifetime.</p>
+            </div>
+            <div class="editorial-img">
+                <img src="assets/leather_tote_bag.png" alt="Aurelia Quality">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Shopping Bag</h3>
+            <span class="close-cart" id="close-cart">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
+            </div>
+            <a href="checkout.html" class="btn checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-btn" id="chat-toggle"><i class="fas fa-comment"></i></div>
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <h4>Aurelia Concierge</h4>
+            <span class="close-chat" id="close-chat">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">Welcome to Aurelia. How may our concierge assist you today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Type a message...">
+            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
