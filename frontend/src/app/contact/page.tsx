@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Contact() {
   const [status, setStatus] = useState('');
@@ -37,12 +38,24 @@ export default function Contact() {
 
   return (
     <>
-      <div className="pt-36 pb-12 px-12 text-center bg-[#111] border-b border-[#222] fade-in">
-        <h1 className="text-4xl md:text-5xl text-gold">Private Concierge</h1>
+      <div className="pt-36 pb-12 px-12 text-center bg-[#111] border-b border-[#222]">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl text-gold"
+        >
+          Private Concierge
+        </motion.h1>
       </div>
 
-      <div className="max-w-3xl mx-auto py-20 px-8 fade-in">
-        <p className="text-center mb-12 text-gray-400">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="max-w-3xl mx-auto py-20 px-8"
+      >
+        <p className="text-center mb-12 text-gray-400 text-lg">
           For personalized styling advice, bespoke requests, or inquiries regarding your order, our dedicated concierge team is at your service.
         </p>
         
@@ -56,13 +69,13 @@ export default function Contact() {
           <div>
             <textarea name="message" rows={6} placeholder="Your Message" required className="w-full p-4 bg-[#111] border border-[#333] text-white outline-none focus:border-gold transition-colors"></textarea>
           </div>
-          <button type="submit" disabled={loading} className="btn">
+          <button type="submit" disabled={loading} className="btn py-4 text-lg">
             {loading ? 'Sending...' : 'Send Message'}
           </button>
           
-          {status && <div className="text-center mt-4 text-gold">{status}</div>}
+          {status && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-4 text-gold">{status}</motion.div>}
         </form>
-      </div>
+      </motion.div>
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
+import { motion } from 'framer-motion';
 
 export default function Checkout() {
   const { cart, clearCart } = useCart();
@@ -32,46 +33,63 @@ export default function Checkout() {
 
   return (
     <>
-      <div className="pt-36 pb-12 px-12 text-center bg-[#111] border-b border-[#222] fade-in">
-        <h1 className="text-4xl md:text-5xl text-gold">Secure Checkout</h1>
+      <div className="pt-36 pb-12 px-12 text-center bg-[#111] border-b border-[#222]">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl text-gold"
+        >
+          Secure Checkout
+        </motion.h1>
       </div>
 
-      <div className="max-w-6xl mx-auto py-20 px-8 fade-in">
+      <div className="max-w-6xl mx-auto py-20 px-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           
-          <div className="lg:col-span-2 bg-[#111] p-8 border border-[#333]">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-2 bg-[#111] p-8 border border-[#333]"
+          >
             <h3 className="text-2xl font-serif text-gold mb-6 border-b border-[#333] pb-4">Order Items</h3>
             {cart.length === 0 ? (
               <p className="text-gray-400">Your cart is empty. Please return to the shop.</p>
             ) : (
               cart.map(item => (
-                <div key={item.id} className="flex justify-between items-center py-4 border-b border-[#222]">
-                  <div className="flex gap-5 items-center">
-                    <img src={item.image} alt={item.name} className="w-20 h-20 object-cover" />
+                <div key={item.id} className="flex justify-between items-center py-6 border-b border-[#222]">
+                  <div className="flex gap-6 items-center">
+                    <img src={item.image} alt={item.name} className="w-24 h-24 object-cover border border-[#222]" />
                     <div>
-                      <h4 className="text-lg">{item.name}</h4>
+                      <h4 className="text-xl mb-1">{item.name}</h4>
                       <p className="text-gray-400">Qty: {item.quantity}</p>
                     </div>
                   </div>
-                  <div className="text-lg text-gold">
+                  <div className="text-xl text-gold">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
                 </div>
               ))
             )}
-          </div>
+          </motion.div>
 
-          <div className="bg-[#111] p-8 border border-[#333] h-fit">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="bg-[#111] p-8 border border-[#333] h-fit"
+          >
             <h3 className="text-2xl font-serif text-gold mb-6 border-b border-[#333] pb-4">Order Summary</h3>
-            <div className="flex justify-between mb-4">
+            <div className="flex justify-between mb-4 text-lg">
               <span className="text-gray-300">Subtotal</span>
               <span>Calculated below</span>
             </div>
-            <div className="flex justify-between mb-4">
+            <div className="flex justify-between mb-4 text-lg">
               <span className="text-gray-300">Shipping</span>
               <span>Complimentary</span>
             </div>
-            <div className="flex justify-between mt-6 pt-6 border-t border-[#333] text-xl font-serif text-gold">
+            <div className="flex justify-between mt-8 pt-6 border-t border-[#333] text-2xl font-serif text-gold">
               <span>Total</span>
               <span>${total.toFixed(2)}</span>
             </div>
@@ -79,13 +97,13 @@ export default function Checkout() {
             <button 
               onClick={handlePayment} 
               disabled={loading || cart.length === 0} 
-              className="btn w-full mt-8"
+              className="btn w-full mt-10 py-4 text-lg"
             >
               {loading ? 'Processing...' : 'Complete Purchase'}
             </button>
             
-            {status && <div className="mt-6 text-center text-gold font-medium">{status}</div>}
-          </div>
+            {status && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-6 text-center text-gold font-medium text-lg">{status}</motion.div>}
+          </motion.div>
           
         </div>
       </div>
