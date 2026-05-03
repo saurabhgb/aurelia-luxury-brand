@@ -2,8 +2,15 @@
 import { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+};
+
 export default function Home() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const { addToCart } = useCart();
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
