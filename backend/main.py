@@ -5,11 +5,22 @@ from typing import List
 import asyncio
 import os
 import google.generativeai as genai
+from dotenv import load_dotenv
+from supabase import create_client, Client
+
+load_dotenv()
 
 # Setup Gemini API
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyDrJEAUTY_xYiAfHA5kT82NAnyxpuQ2kFA")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
+
+# Initialize Supabase
+supabase_url = os.environ.get("SUPABASE_URL")
+supabase_key = os.environ.get("SUPABASE_KEY")
+if not supabase_url or not supabase_key:
+    raise ValueError("Missing Supabase credentials in environment variables")
+supabase: Client = create_client(supabase_url, supabase_key)
 
 app = FastAPI(title="Aurelia API")
 
@@ -40,40 +51,15 @@ class ContactForm(BaseModel):
     email: str
     message: str
 
-# --- Mock Data ---
-
-PRODUCTS = [
-    {
-        "id": 1,
-        "name": "The Obsidian Blazer",
-        "price": 1250.00,
-        "image": "assets/obsidian_blazer.png"
-    },
-    {
-        "id": 2,
-        "name": "Champagne Silk Slip Dress",
-        "price": 890.00,
-        "image": "assets/champagne_silk_dress.png"
-    },
-    {
-        "id": 3,
-        "name": "Aurelia Gold Cuff",
-        "price": 450.00,
-        "image": "assets/gold_cuff_bracelet.png"
-    },
-    {
-        "id": 4,
-        "name": "Noir Leather Tote",
-        "price": 1600.00,
-        "image": "assets/leather_tote_bag.png"
-    }
-]
-
 # --- Endpoints ---
 
 @app.get("/products")
 async def get_products():
-    return {"products": PRODUCTS}
+    try:
+        response = supabase.table("products").select("*").execute()
+        return {"products": response.data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 @app.post("/process-payment")
 async def process_payment(payment: PaymentRequest):

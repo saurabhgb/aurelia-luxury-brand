@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import { ShoppingBag } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { ShoppingBag, User } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { cart, setIsCartOpen } = useCart();
+  const { user, loading } = useAuth();
   
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -24,10 +26,17 @@ export default function Navbar() {
       <div className="font-serif text-2xl font-bold tracking-widest text-gold">
         <Link href="/">AURELIA</Link>
       </div>
-      <ul className="hidden md:flex gap-8 list-none">
+      <ul className="hidden md:flex gap-8 list-none items-center">
         <li><Link href="/" className={`uppercase text-sm tracking-wide ${pathname === '/' ? 'text-gold' : 'text-text hover:text-gold transition-colors'}`}>Shop</Link></li>
         <li><Link href="/about" className={`uppercase text-sm tracking-wide ${pathname === '/about' ? 'text-gold' : 'text-text hover:text-gold transition-colors'}`}>Maison</Link></li>
         <li><Link href="/contact" className={`uppercase text-sm tracking-wide ${pathname === '/contact' ? 'text-gold' : 'text-text hover:text-gold transition-colors'}`}>Concierge</Link></li>
+        {!loading && (
+          <li>
+            <Link href={user ? "/account" : "/login"} className={`uppercase text-sm tracking-wide ${pathname === '/login' || pathname === '/account' ? 'text-gold' : 'text-text hover:text-gold transition-colors'}`}>
+              {user ? 'Account' : 'Login'}
+            </Link>
+          </li>
+        )}
       </ul>
       <div className="flex gap-5">
         {pathname === '/checkout' ? (
