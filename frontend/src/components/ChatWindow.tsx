@@ -1,6 +1,8 @@
 "use client";
 import { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
+import { usePathname } from 'next/navigation';
 
 type Message = {
   text: string;
@@ -15,6 +17,9 @@ export default function ChatWindow() {
   ]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  const { cart } = useCart();
+  const pathname = usePathname();
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -34,10 +39,18 @@ export default function ChatWindow() {
     setMessages(prev => [...prev, { text: userMsg, sender: 'user' }, { text: "...", sender: 'bot', isTyping: true }]);
 
     try {
+      const payload = {
+        message: userMsg,
+        context: {
+          cart: cart,
+          pathname: pathname
+        }
+      };
+
       const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg })
+        body: JSON.stringify(payload)
       });
       const data = await response.json();
       
