@@ -16,14 +16,18 @@ export default function Checkout() {
     setStatus('');
     
     try {
-      const res = await fetch(`${API_URL}/process-payment`, {
+      const res = await fetch(`${API_URL}/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cart, total })
       });
       const data = await res.json();
-      setStatus(data.message);
-      clearCart();
+      
+      if (data.url) {
+        window.location.href = data.url; // Redirect to Stripe Checkout
+      } else {
+        setStatus(data.detail || 'Payment failed to initialize.');
+      }
     } catch (err) {
       setStatus('Payment failed. Please try again.');
     } finally {

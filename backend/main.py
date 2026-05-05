@@ -7,6 +7,7 @@ import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 from supabase import create_client, Client
+import stripe
 
 load_dotenv()
 
@@ -21,6 +22,9 @@ supabase_key = os.environ.get("SUPABASE_KEY")
 if not supabase_url or not supabase_key:
     raise ValueError("Missing Supabase credentials in environment variables")
 supabase: Client = create_client(supabase_url, supabase_key)
+
+# Initialize Stripe
+stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
 app = FastAPI(title="Aurelia API")
 
@@ -62,11 +66,48 @@ async def get_products():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
-@app.post("/process-payment")
-async def process_payment(payment: PaymentRequest):
-    # Simulate payment processing delay
-    await asyncio.sleep(2)
-    return {"status": "success", "message": "Payment Successful. Thank you for shopping with Aurelia."}
+@app.post("/create-checkout-session")
+async def create_checkout_session(payment: PaymentRequest):
+    try:
+        # Fetch actual products from DB to verify prices securely
+        db_response = supabase.table("products").select("*").execute()
+        products_db = {str(p["id"]): p for p in db_response.data}
+        
+        line_items = []
+        for item in payment.cart:
+            # item is a dict because cart: list
+            item_id = str(item.get("id"))
+            db_product = products_db.get(item_id)
+            
+            if not db_product:
+                raise HTTPException(status_code=400, detail=f"Product {item_id} not found")
+                
+            unit_amount = int(float(db_product["price"]) * 100)
+            
+            line_items.append({
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': db_product["name"],
+                    },
+                    'unit_amount': unit_amount,
+                },
+                'quantity': item.get("quantity", 1),
+            })
+
+        domain_url = os.environ.get("FRONTEND_URL", "https://aurelia-luxury-brand.vercel.app")
+
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=line_items,
+            mode='payment',
+            success_url=f"{domain_url}/success",
+            cancel_url=f"{domain_url}/cancel",
+        )
+        return {"url": session.url}
+    except Exception as e:
+        print(f"Stripe Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/chat")
 async def chat(chat_message: ChatMessage):
