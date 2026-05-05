@@ -69,13 +69,13 @@ export default function ChatWindow() {
   return (
     <>
       <div 
-        className="fixed bottom-8 right-8 w-14 h-14 bg-gold text-bg rounded-full flex justify-center items-center cursor-pointer shadow-lg z-[999] hover:scale-110 transition-transform"
+        className="fixed bottom-8 right-4 md:right-8 w-14 h-14 bg-gold text-bg rounded-full flex justify-center items-center cursor-pointer shadow-lg z-[999] hover:scale-110 transition-transform"
         onClick={() => setIsOpen(!isOpen)}
       >
         <MessageSquare size={24} />
       </div>
 
-      <div className={`fixed bottom-[100px] right-8 w-[350px] h-[450px] bg-[#151515] border border-[#333] rounded-lg flex flex-col z-[999] transition-all duration-300 shadow-2xl ${isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-5'}`}>
+      <div className={`fixed bottom-[100px] right-4 md:right-8 w-[calc(100vw-2rem)] md:w-[350px] h-[450px] bg-[#151515] border border-[#333] rounded-lg flex flex-col z-[999] transition-all duration-300 shadow-2xl ${isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-5'}`}>
         <div className="bg-[#111] p-4 flex justify-between items-center rounded-t-lg border-b border-[#333]">
           <h4 className="text-gold font-serif">Aurelia Concierge</h4>
           <button onClick={() => setIsOpen(false)} className="text-text hover:text-gold"><X size={20} /></button>
