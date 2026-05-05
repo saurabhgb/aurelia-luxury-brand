@@ -75,8 +75,7 @@ async def create_checkout_session(payment: PaymentRequest):
         
         line_items = []
         for item in payment.cart:
-            # item is a dict because cart: list
-            item_id = str(item.get("id"))
+            item_id = str(item.id)
             db_product = products_db.get(item_id)
             
             if not db_product:
@@ -92,7 +91,7 @@ async def create_checkout_session(payment: PaymentRequest):
                     },
                     'unit_amount': unit_amount,
                 },
-                'quantity': item.get("quantity", 1),
+                'quantity': item.quantity,
             })
 
         domain_url = os.environ.get("FRONTEND_URL", "https://aurelia-luxury-brand.vercel.app")
