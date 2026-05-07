@@ -47,9 +47,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full h-[500px] md:h-[700px] bg-[#111] border border-[#222] p-8"
+          className="w-full h-[500px] md:h-[700px] bg-[#111] border border-[#222] p-8 overflow-hidden group cursor-crosshair"
         >
-          <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+          <img src={product.image} alt={product.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-125" />
         </motion.div>
         
         <motion.div 
